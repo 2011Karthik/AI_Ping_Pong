@@ -1,4 +1,4 @@
-
+GameStatus = "";
 /*created by prashant shukla */
 
 var paddle2 =10,paddle1=10;
@@ -23,9 +23,18 @@ var ball = {
 
 function setup(){
   var canvas =  createCanvas(700,600);
-  
+  canvas.parent('canvas');
+  video = createCapture();
+  video.size();
+  video.height();
+  video.hide();
+  PoseNet=ml5.PoseNet(video, ModelLoaded)
+  PoseNet.on('Pose', gotPoses);
 }
-
+function ModelLoaded()
+{
+  console.log = ('Model Loaded');
+}
 
 function draw(){
 

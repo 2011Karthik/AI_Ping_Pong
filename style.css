@@ -29,3 +29,8 @@
     line-height: 3;
     text-align: center;
 }
+
+canvas{
+    border-color: white;
+    border-width: 5px;
+}
