@@ -1,4 +1,7 @@
 GameStatus = "";
+right_wristX = "";
+right_wristY = "";
+score_right_wrist = "";
 /*created by prashant shukla */
 
 var paddle2 =10,paddle1=10;
@@ -26,28 +29,37 @@ function setup(){
   canvas.parent('canvas');
   video = createCapture();
   video.size();
-  video.height();
   video.hide();
-  PoseNet=ml5.PoseNet(video, ModelLoaded)
-  PoseNet.on('Pose', gotPoses);
+  poseNet=ml5.PoseNet(video, ModelLoaded)
+  poseNet.on('Pose', gotPoses);
 }
 function ModelLoaded()
 {
   console.log = ('Model Loaded');
 }
 
+function gotPoses()
+{
+  if(results.length > 0)
+  {
+    console.log(results);
+    right_wristX = results[0].pose.right_wrist.x;
+    right_wristY = results[0].pose.right_wrist.y;
+    score_right_wrist = results[0].pose.keyPoints.score;
+  }
+}
+
 function draw(){
 
  background(0); 
+if(score_right_wrist > 0.2)
+{
+fill("Red");
+stroke("Blue");
+circle(right_wristX, right_wristY,5)
+}
 
- fill("black");
- stroke("black");
- rect(680,0,20,700);
 
- fill("black");
- stroke("black");
- rect(0,0,20,700);
- 
    //funtion paddleInCanvas call 
    paddleInCanvas();
  
